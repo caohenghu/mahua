@@ -25,9 +25,9 @@
     var RICE_PRICE = 2; // 米饭价格
     var SELECT_PRICE = 0; // 已点菜的价格
 
-    function getMenu(peopleNum) {
+    function getMenu(peopleNum, riceNum, expectPrice) {
         var totalPrice = peopleNum * UNIT_PRICE; // 允许点菜的总价格
-        var selectPrice = peopleNum * RICE_PRICE; // 已点菜的价格
+        var selectPrice = riceNum * RICE_PRICE + parseFloat(expectPrice); // 已点菜的价格
         var whileCount = 0;
         var maxWhileCount = 1000;
         var maxPriceCount = 0; // 价格高的菜的最大数量
@@ -69,7 +69,7 @@
         SELECT_PRICE = selectPrice;
         menu.push({
             name: '米饭',
-            price: peopleNum * RICE_PRICE
+            price: riceNum * RICE_PRICE
         });
         return menu;
     }
@@ -90,9 +90,11 @@
 
     function showMenu() {
         var peopleNum = document.getElementById('people_num').value;
+        var riceNum = document.getElementById('rice_num').value;
+        var exceptPrice = document.getElementById('except_price').value;
         var table = document.getElementById('menu');
         var trs = [];
-        var menu = getMenu(peopleNum);
+        var menu = getMenu(peopleNum, riceNum, exceptPrice);
 
         trs.push('<tr><th>菜名</th><th>价格</th></tr>');
         for (var i = 0; i < menu.length; i++) {
